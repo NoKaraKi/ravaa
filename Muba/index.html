@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Muba & Artem</title>
+
+  <!-- Подключаем шрифт Caveat -->
+  <link href="https://fonts.googleapis.com/css2?family=Caveat&display=swap" rel="stylesheet" />
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      color: white;
+      background-color: #fff;
+    }
+
+    .extra-images img,
+    .extra-images1 img,
+    .bottom-images img,
+    .third-images img,
+    .fourth-images img {
+      width: 90%;
+      max-width: 400px;
+      margin: 15px 0;
+    }
+
+    .top-background,
+    .bottom-background,
+    .third-background,
+    .fourth-background {
+      background-image: url('image.png');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 60px 20px 40px;
+      position: relative;
+      color: white;
+    }
+
+    .top-background {
+      height: 100vh;
+      justify-content: center;
+    }
+
+    .transition-line {
+      position: absolute;
+      bottom: -28px;
+      left: 0;
+      width: 100%;
+      height: auto;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    /* Таймер */
+
+    #counter {
+      font-family: 'Caveat', cursive, sans-serif;
+      display: flex;
+      justify-content: center;
+      gap: 20px;
+      margin: 30px 0 0 0;
+      user-select: none;
+      color: black;
+      background: transparent;
+    }
+
+    .time-segment {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-width: 40px;
+    }
+
+    .time-value {
+      font-size: 3.5rem;
+      line-height: 1;
+      font-weight: 700;
+      color: black;
+    }
+
+    .time-label {
+      font-size: 1rem;
+      margin-top: 4px;
+      text-transform: lowercase;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      color: black;
+    }
+
+    .counter.finished {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: black;
+      padding: 20px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ВЕРХНИЙ ФОН -->
+  <div class="top-background">
+    <div class="extra-images">
+      <img src="C:\Users\ACER\Desktop\Muba\Artem & Mubarak 11.08.2025.png" alt="Фото 1" />
+      <img src="____________.png" alt="Фото 2" />
+    </div>
+    <img class="transition-line" src="png-klev-club-ny9q-p-krasivaya-liniya-png-14.png" alt="Линия перехода" />
+  </div>
+
+  <!-- СРЕДНИЙ ФОН -->
+  <div class="bottom-background">
+    <div class="bottom-images">
+      <img src="Дорогие гости!.png" alt="Новая картинка 1" />
+      <img src="да.png" alt="Новая картинка 2" />
+      <img src="Group 1 (1).png" alt="Новая картинка 3" />
+    </div>
+    <img class="transition-line" src="png-klev-club-ny9q-p-krasivaya-liniya-png-14.png" alt="Линия перехода" />
+  </div>
+
+  <!-- ТРЕТИЙ ФОН -->
+  <div class="third-background">
+    <div class="third-images">
+      <img src="Group 2.png" alt="Доп фото 1" />
+      <a href="https://2gis.kz/almaty/firm/70000001025824800/77.048165%2C43.305045?m=77.048165%2C43.305046%2F16%2Fp%2F6.55%2Fr%2F23.02" target="_blank">
+        <img src="image 2.png" alt="Доп фото 2" />
+      </a>
+    </div>
+    <img class="transition-line" src="png-klev-club-ny9q-p-krasivaya-liniya-png-14.png" alt="Линия перехода" />
+  </div>
+
+  <!-- ЧЕТВЁРТЫЙ ФОН -->
+  <div class="fourth-background">
+    <div class="fourth-images">
+      <img src="Group 3.png" alt="Четвёртая картинка 1" />
+
+    </div>
+
+    <!-- Таймер обратного отсчёта -->
+    <div id="counter" aria-live="polite" aria-atomic="true" class="counter">
+      <div class="time-segment">
+        <div class="time-value" id="days">--</div>
+        <div class="time-label">дней</div>
+      </div>
+      <div class="time-segment">
+        <div class="time-value" id="hours">--</div>
+        <div class="time-label">часов</div>
+      </div>
+      <div class="time-segment">
+        <div class="time-value" id="minutes">--</div>
+        <div class="time-label">минут</div>
+      </div>
+      <div class="time-segment">
+        <div class="time-value" id="seconds">--</div>
+        <div class="time-label">секунд</div>
+      </div>
+    </div>
+
+  </div>
+
+  <script>
+    const weddingDate = new Date(2025, 7, 11, 19, 0, 0); // август = 7 (0-based)
+
+    const daysEl = document.getElementById('days');
+    const hoursEl = document.getElementById('hours');
+    const minutesEl = document.getElementById('minutes');
+    const secondsEl = document.getElementById('seconds');
+    const counterEl = document.getElementById('counter');
+
+    function updateCountdown() {
+      const now = new Date();
+      const diff = weddingDate - now;
+
+      if (diff <= 0) {
+        counterEl.classList.add('finished');
+        counterEl.textContent = 'Свадьба началась! 🎉';
+        clearInterval(timerInterval);
+        return;
+      }
+
+      const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+      const minutes = Math.floor((diff / (1000 * 60)) % 60);
+      const seconds = Math.floor((diff / 1000) % 60);
+
+      daysEl.textContent = days;
+      hoursEl.textContent = String(hours).padStart(2, '0');
+      minutesEl.textContent = String(minutes).padStart(2, '0');
+      secondsEl.textContent = String(seconds).padStart(2, '0');
+    }
+
+    updateCountdown();
+    const timerInterval = setInterval(updateCountdown, 1000);
+  </script>
+
+</body>
+</html>
